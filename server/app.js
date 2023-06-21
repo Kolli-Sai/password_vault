@@ -1,9 +1,13 @@
 //! import packages
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 //! import middlewares
 const { not_found } = require("./middlewares/not_found");
+const { customError } = require("./middlewares/errorHandler");
+const { authentication } = require("./middlewares/authentication");
 
 //! import routers
 const { authRouter } = require("./routes/auth");
@@ -16,13 +20,19 @@ require("dotenv/config");
 const app = express();
 
 //! middlewares
+app.use(express.json());
+app.use(cors());
+app.use(cookieParser());
 
 //! route middlewares
 app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/user", passwordsRouter);
+app.use("/api/v1/user", authentication, passwordsRouter);
 
 //! custom Not-Found middleware
 app.use(not_found);
+
+//! custom error handling middleware
+app.use(customError);
 
 //! connect to DB and listen to requests
 const port = process.env.PORT || 8190;
