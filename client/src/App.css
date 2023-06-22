@@ -1,0 +1,118 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+/* colors  */
+:root {
+  --text: #051f09;
+  --background: #ffffff;
+  --primary-button: #871774;
+  --secondary-button: #e5fbe8;
+  --accent: #871774;
+  --static1: rgba(225, 225, 225, 0.5);
+  --static2: rgba(225, 225, 225, 0.2);
+  --static3: #ffffff;
+  --static4: #0f0f0f;
+}
+/* font-sizes  */
+:root {
+  --h1: 48px;
+  --h2: 32px;
+  --h3: 24px;
+  --p: 18px;
+  --sub: 16px;
+  --small: 14px;
+}
+::selection {
+  background-color: var(--static1);
+}
+
+/* text styles */
+h1 {
+  font-size: var(--h1);
+  letter-spacing: -1px;
+  font-weight: 700;
+  margin: 0;
+}
+
+h2 {
+  font-size: var(--h2);
+  letter-spacing: -2px;
+  font-weight: 700;
+  margin: 0;
+}
+
+h3 {
+  font-size: var(--h3);
+  font-weight: 700;
+}
+.subtitle {
+  font-size: var(--subtitle);
+}
+p {
+  font-size: 18px;
+  letter-spacing: normal;
+  line-height: 150%;
+}
+
+.sub {
+  font-size: var(--sub);
+}
+.small {
+  font-size: var(--small);
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+  font-size: var(--p);
+  transition: transform ease 0.2s;
+}
+
+body {
+  /* width: 100vw; */
+
+  margin: 0 15%;
+  color: var(--text);
+  background-color: var(--background);
+  /* border: 2px solid var(--text); */
+}
+
+.primary-button {
+  display: inline-block;
+  color: inherit;
+  background-color: var(--primary-button);
+  padding: 1em 2em;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform ease 0.2s, box-shadow ease 0.2s;
+}
+.primary-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 80px -10px var(--primary-button);
+}
+
+.secondary-button {
+  display: inline-block;
+
+  color: inherit;
+  background-color: var(--secondary-button);
+  padding: 1em 2em;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform ease 0.2s;
+}
+.secondary-button:hover {
+  transform: translateY(3px);
+}
+
+a:hover {
+  transform: translateY(-3px);
+}
+.active {
+  text-decoration-line: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 4px;
+}
