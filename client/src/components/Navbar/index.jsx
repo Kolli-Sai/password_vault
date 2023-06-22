@@ -22,7 +22,7 @@ function Navbar() {
         <div className={styles.container}>
           <div className={styles.sub3}>
             <IconButton onClick={handleClick}>
-              <MenuIcon style={{ color: "#fff" }} />
+              <MenuIcon style={{ color: "var(--text)" }} />
             </IconButton>
             <Menu
               anchorEl={anchorEl}
@@ -52,9 +52,9 @@ function Navbar() {
           </div>
           <div className={styles.sub2}>
             <div className={styles.login}>
-              <NavLink to={"/login"} className={"primary-button"}>
+              <Link to={"/login"} className={"primary-button"}>
                 Login
-              </NavLink>
+              </Link>
             </div>
           </div>
         </div>

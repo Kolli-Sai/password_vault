@@ -5,11 +5,11 @@
 }
 /* colors  */
 :root {
-  --text: #fdfcfd;
-  --background: #0d070e;
-  --primary-button: #ac5387;
-  --secondary-button: #000000;
-  --accent: #ac535a;
+  --text: #051f09;
+  --background: #ffffff;
+  --primary-button: #871774;
+  --secondary-button: #e5fbe8;
+  --accent: #871774;
   --static1: rgba(225, 225, 225, 0.5);
   --static2: rgba(225, 225, 225, 0.2);
   --static3: #ffffff;

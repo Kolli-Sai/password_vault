@@ -20,9 +20,9 @@
   font-weight: 700;
   transition: transform ease 0.2s;
 }
-.logo:hover {
+/* .logo:hover {
   transform: rotate(10deg);
-}
+} */
 @media (min-width: 600px) {
   .sub3 {
     display: none;
