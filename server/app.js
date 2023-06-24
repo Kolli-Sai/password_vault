@@ -18,22 +18,10 @@ require("dotenv/config");
 
 //! invoking express module
 const app = express();
-var whitelist = [
-  "https://6493f76d097475310710590e--wondrous-beignet-6c8752.netlify.app",
-];
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-};
 
 //! middlewares
 app.use(express.json());
-app.use(cors(corsOptions)); // Pass corsOptions as an argument here
+app.use(cors());
 app.use(cookieParser());
 
 //! route middlewares
@@ -51,12 +39,12 @@ const port = process.env.PORT || 8190;
 const startServer = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);
-    console.log(`connected to MongoDB`);
+    console.log(`Connected to MongoDB`);
     app.listen(port, () => {
-      console.log(`server listening on port ${port}`);
+      console.log(`Server listening on port ${port}`);
     });
   } catch (error) {
-    console.log(`error in starting server -> ${error}`);
+    console.log(`Error in starting server: ${error}`);
   }
 };
 
