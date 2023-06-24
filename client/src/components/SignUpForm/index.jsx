@@ -1,8 +1,12 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { TextField, Button } from "@mui/material";
+import { TextField } from "@mui/material";
 import * as yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { createUser } from "../../store/createUser/createUserSlice";
+import { useNavigate } from "react-router-dom";
+import { MuiBackDrop } from "../Backdrop/Backdrop";
 
 const validationSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -29,9 +33,22 @@ const initialValues = {
 };
 
 export const SignUpForm = () => {
-  const handleSignup = (values) => {
-    // Perform signup logic here
-    console.log("Form values:", values);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isLoading, data, error } = useSelector((store) => store.createUser);
+  const handleSignup = async (values, { resetForm }) => {
+    delete values.confirmPassword;
+    try {
+      const result = await dispatch(createUser(values));
+      console.log(`createUser -> ${result}`);
+      if (data && data?.message) {
+        navigate("/login");
+      }
+      resetForm();
+    } catch (error) {
+      console.log(`error in createUser -> ${error}`);
+      resetForm();
+    }
   };
 
   return (
@@ -92,9 +109,11 @@ export const SignUpForm = () => {
             helperText={<ErrorMessage name="confirmPassword" />}
           />
 
-          <Button type="submit" variant="contained" color="primary">
-            Submit
-          </Button>
+          <button className="primary-button" type="submit">
+            {isLoading ? "SigningUp..." : "SignUp"}
+          </button>
+          <MuiBackDrop isLoading={isLoading} />
+          {error && <p className="red">{error}</p>}
         </Form>
       )}
     </Formik>

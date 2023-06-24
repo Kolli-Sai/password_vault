@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { default as axios } from "axios";
+import { API } from "../API";
 
 const initialState = {
   isLoading: false,
@@ -9,9 +9,7 @@ const initialState = {
 
 export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {
   try {
-    const response = await axios.get(
-      "http://localhost:8190/api/v1/auth/logout"
-    );
+    const response = await API.get("/api/v1/auth/logout");
     const data = await response.data;
     return data;
   } catch (error) {

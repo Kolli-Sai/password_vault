@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { TextField, Button } from "@mui/material";
+import { TextField } from "@mui/material";
 import * as Yup from "yup";
 
 const validationSchema = Yup.object({
@@ -60,10 +60,9 @@ export const LoginForm = () => {
             error={!!(errors.password && touched.password)}
             helperText={<ErrorMessage name="password" />}
           />
-
-          <Button type="submit" variant="contained" color="primary">
-            Submit
-          </Button>
+          <button className="primary-button" type="submit">
+            Login
+          </button>
         </Form>
       )}
     </Formik>
