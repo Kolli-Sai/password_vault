@@ -75,7 +75,7 @@ const loginUser = async (req, res, next) => {
     );
     res
       .cookie("access_token", token, {
-        domain: "https://wondrous-beignet-6c8752.netlify.app/",
+        domain: "wondrous-beignet-6c8752.netlify.app",
         secure: true,
         sameSite: "None",
       })
