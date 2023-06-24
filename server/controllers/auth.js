@@ -13,6 +13,7 @@ const registerSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().required().min(8).max(16),
 });
+
 const loginSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().required().min(8).max(16),
@@ -43,7 +44,7 @@ const registerUser = async (req, res, next) => {
     let createUser = await User.create(newUser);
     res
       .status(201)
-      .json({ message: "userCreated successfully", ...createUser._doc });
+      .json({ message: "User created successfully", ...createUser._doc });
   } catch (error) {
     next(error);
   }
@@ -67,13 +68,13 @@ const loginUser = async (req, res, next) => {
       throw new BadRequestError("Incorrect password");
     }
 
-    let token = jwt.sign(
+    const token = jwt.sign(
       { userId: user._id, name: user.name },
       process.env.JWT_SECRET,
       { expiresIn: process.env.EXPIRES_IN }
     );
     res
-      .cookie("access_token", token)
+      .cookie("access_token", token, { secure: true })
       .status(201)
       .json({ message: "Logged in successfully" });
   } catch (error) {
