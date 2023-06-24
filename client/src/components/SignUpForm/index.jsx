@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { TextField } from "@mui/material";
 import * as yup from "yup";
@@ -40,16 +40,19 @@ export const SignUpForm = () => {
     delete values.confirmPassword;
     try {
       const result = await dispatch(createUser(values));
-      console.log(`createUser -> ${result}`);
-      if (data && data?.message) {
-        navigate("/login");
-      }
+      console.log(`createUser -> ${result.meta}`);
+
       resetForm();
     } catch (error) {
       console.log(`error in createUser -> ${error}`);
       resetForm();
     }
   };
+  useEffect(() => {
+    if (data && data.message) {
+      navigate("/login");
+    }
+  }, [data && data?.message, dispatch]);
 
   return (
     <Formik

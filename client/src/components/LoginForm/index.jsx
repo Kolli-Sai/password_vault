@@ -1,8 +1,12 @@
 // eslint-disable-next-line no-unused-vars
-import React from "react";
+import { useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { TextField } from "@mui/material";
 import * as Yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../store/loginUser/loginUserSlice";
+import { MuiBackDrop } from "../Backdrop/Backdrop";
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -22,10 +26,24 @@ const initialValues = {
 };
 
 export const LoginForm = () => {
-  const handleSubmit = (values) => {
-    // Handle form submission logic here
-    console.log(values);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isLoading, data, error } = useSelector((store) => store.loginUser);
+  const handleSubmit = async (values, { resetForm }) => {
+    try {
+      const result = await dispatch(loginUser(values));
+      console.log(`login user->${result}`);
+      resetForm();
+    } catch (error) {
+      console.log(`error in login user -> ${error}`);
+      resetForm();
+    }
   };
+  useEffect(() => {
+    if (data && data.message) {
+      navigate("/login");
+    }
+  }, [data && data?.message, dispatch]);
 
   return (
     <Formik
@@ -63,6 +81,8 @@ export const LoginForm = () => {
           <button className="primary-button" type="submit">
             Login
           </button>
+          <MuiBackDrop isLoading={isLoading} />
+          {error && <p className="red">{error}</p>}
         </Form>
       )}
     </Formik>
