@@ -41,7 +41,7 @@ export const LoginForm = () => {
   };
   useEffect(() => {
     if (data && data.message) {
-      navigate("/login");
+      navigate("/dashboard");
     }
   }, [data && data?.message, dispatch]);
 
