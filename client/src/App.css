@@ -82,10 +82,11 @@ body {
 
 .primary-button {
   display: inline-block;
-  color: inherit;
+  color: var(--background);
   background-color: var(--primary-button);
   padding: 1em 2em;
   border-radius: 6px;
+  border: none;
   cursor: pointer;
   transition: transform ease 0.2s, box-shadow ease 0.2s;
 }
@@ -99,7 +100,7 @@ body {
 
   color: inherit;
   background-color: var(--secondary-button);
-  padding: 1em 2em;
+  padding: 0.5em 1em;
   border-radius: 6px;
   cursor: pointer;
   transition: transform ease 0.2s;
@@ -115,4 +116,12 @@ a:hover {
   text-decoration-line: underline;
   text-decoration-color: var(--accent);
   text-decoration-thickness: 4px;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
 }

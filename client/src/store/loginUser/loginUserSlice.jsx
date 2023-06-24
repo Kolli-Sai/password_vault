@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { API } from "../API";
 
 const initialState = {
   isLoading: false,
@@ -11,13 +11,9 @@ export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        "http://localhost:8190/api/v1/auth/login",
-        credentials,
-        {
-          withCredentials: true, // Include cookies in the request
-        }
-      );
+      const response = await API.post("/api/v1/auth/login", credentials, {
+        withCredentials: true, // Include cookies in the request
+      });
       const data = await response.data;
       console.log(`data from login user->${data}`);
       return data;

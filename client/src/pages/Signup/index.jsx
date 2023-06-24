@@ -23,8 +23,7 @@ function Login() {
           width="731.67004"
           height="625.99672"
           viewBox="0 0 731.67004 625.99672"
-          // eslint-disable-next-line react/no-unknown-property
-          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
         >
           <path
             id="uuid-5ef434d5-ec3b-4be2-96d4-c13c471d6de8-252"
