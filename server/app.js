@@ -33,7 +33,7 @@ var corsOptions = {
 
 //! middlewares
 app.use(express.json());
-app.use(cors(corsOptions));
+app.use(cors(corsOptions)); // Pass corsOptions as an argument here
 app.use(cookieParser());
 
 //! route middlewares
