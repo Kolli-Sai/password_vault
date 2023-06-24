@@ -74,7 +74,7 @@ const loginUser = async (req, res, next) => {
       { expiresIn: process.env.EXPIRES_IN }
     );
     res
-      .cookie("access_token", token, { secure: true })
+      .cookie("access_token", token, { secure: true, sameSite: "None" })
       .status(201)
       .json({ message: "Logged in successfully" });
   } catch (error) {
