@@ -6,6 +6,7 @@
     grid-template-rows: repeat(2, 1fr);
     gap: 2em;
     margin-top: 2em;
+    margin-bottom: 2em;
   }
   .heroImage {
     order: 1; /* Updated order value */
@@ -31,6 +32,7 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
     gap: 2em;
+    margin-bottom: 2em;
   }
   .heroImage {
     order: 1;
