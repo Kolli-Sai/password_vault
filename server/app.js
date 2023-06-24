@@ -20,7 +20,8 @@ require("dotenv/config");
 const app = express();
 
 const corsOptions = {
-  origin: "https://wondrous-beignet-6c8752.netlify.app",
+  origin:
+    "https://6496945993a1cb316ab148ea--wondrous-beignet-6c8752.netlify.app",
   credentials: true,
 };
 //! middlewares
