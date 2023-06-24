@@ -18,10 +18,22 @@ require("dotenv/config");
 
 //! invoking express module
 const app = express();
+var whitelist = [
+  "https://6493f76d097475310710590e--wondrous-beignet-6c8752.netlify.app",
+];
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
 
 //! middlewares
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(cookieParser());
 
 //! route middlewares
