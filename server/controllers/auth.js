@@ -41,7 +41,9 @@ const registerUser = async (req, res, next) => {
       password: hashedPassword,
     };
     let createUser = await User.create(newUser);
-    res.status(201).json(createUser);
+    res
+      .status(201)
+      .json({ message: "userCreated successfully", ...createUser._doc });
   } catch (error) {
     next(error);
   }

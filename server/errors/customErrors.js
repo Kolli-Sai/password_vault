@@ -11,6 +11,7 @@ class CustomError extends Error {
 class NotFoundError extends CustomError {
   constructor(message) {
     super(message);
+    this.error = message;
     this.statusCode = StatusCodes.NOT_FOUND;
     this.statusMessage = "NOT_FOUND";
   }
@@ -18,6 +19,8 @@ class NotFoundError extends CustomError {
 class BadRequestError extends CustomError {
   constructor(message) {
     super(message);
+    this.error = message;
+
     this.statusCode = StatusCodes.BAD_REQUEST;
     this.statusMessage = "BAD_REQUEST";
   }
@@ -25,6 +28,8 @@ class BadRequestError extends CustomError {
 class ConflictError extends CustomError {
   constructor(message) {
     super(message);
+    this.error = message;
+
     this.statusCode = StatusCodes.CONFLICT;
     this.statusMessage = "CONFLICT";
   }
@@ -32,6 +37,8 @@ class ConflictError extends CustomError {
 class UnprocessableEntityError extends CustomError {
   constructor(message) {
     super(message);
+    this.error = message;
+
     this.statusCode = StatusCodes.UNPROCESSABLE_ENTITY;
     this.statusMessage = "UNPROCESSABLE_ENTITY";
   }
@@ -39,6 +46,8 @@ class UnprocessableEntityError extends CustomError {
 class UnauthorizedError extends CustomError {
   constructor(message) {
     super(message);
+    this.error = message;
+
     this.statusCode = StatusCodes.UNAUTHORIZED;
     this.statusMessage = "UNAUTHORIZED";
   }
