@@ -12,7 +12,8 @@ import { useDispatch } from "react-redux";
 import { setToken } from "./store/isAuthenticated/isAuthenticatedSlice";
 function App() {
   const dispatch = useDispatch();
-  const token = Cookies.get("access_token");
+  const token = Cookies.get("access-token");
+
   useEffect(() => {
     dispatch(setToken(token));
   }, [dispatch, token]);
