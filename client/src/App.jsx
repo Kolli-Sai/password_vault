@@ -15,7 +15,7 @@ function App() {
   const token = Cookies.get("access_token");
   useEffect(() => {
     dispatch(setToken(token));
-  }, []);
+  }, [dispatch, token]);
   return (
     <>
       <BrowserRouter>
