@@ -73,12 +73,19 @@ const loginUser = async (req, res, next) => {
       process.env.JWT_SECRET,
       { expiresIn: process.env.EXPIRES_IN }
     );
+
+    const expirationTime = jwt.decode(token).exp;
+
+    const cookieOptions = {
+      domain: ["wondrous-beignet-6c8752.netlify.app", "localhost:5173"],
+      path: "/",
+      secure: process.env.NODE_ENVIRONMENT === "development" ? false : true,
+      sameSite: process.env.NODE_ENVIRONMENT === "development" ? "Lax" : "None",
+      httpOnly: false,
+      expires: new Date(expirationTime * 1000),
+    };
     res
-      .cookie("access_token", token, {
-        domain: "wondrous-beignet-6c8752.netlify.app",
-        secure: true,
-        sameSite: "None",
-      })
+      .cookie("access_token", token, cookieOptions)
       .status(201)
       .json({ message: "Logged in successfully" });
   } catch (error) {
