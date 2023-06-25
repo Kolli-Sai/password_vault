@@ -78,14 +78,14 @@ const loginUser = async (req, res, next) => {
 
     const cookieOptions = {
       domain: ["wondrous-beignet-6c8752.netlify.app", "localhost:5173"],
-      path: "/",
       secure: process.env.NODE_ENVIRONMENT === "development" ? false : true,
       sameSite: process.env.NODE_ENVIRONMENT === "development" ? "Lax" : "None",
       httpOnly: false,
       expires: new Date(expirationTime * 1000),
     };
+
     res
-      .cookie("access_token", token, cookieOptions)
+      .cookie("access-token", token, cookieOptions)
       .status(201)
       .json({ message: "Logged in successfully" });
   } catch (error) {

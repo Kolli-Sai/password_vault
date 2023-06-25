@@ -3,15 +3,18 @@ const jwt = require("jsonwebtoken");
 
 const authentication = async (req, res, next) => {
   try {
-    let token = req.cookies.access_token;
+    const token = req.cookies["access-token"];
+
     if (!token) {
       throw new UnauthorizedError("Invalid token");
     }
-    let payload = await jwt.verify(token, process.env.JWT_SECRET);
 
+    const payload = await jwt.verify(token, process.env.JWT_SECRET);
     req.user = payload;
+
     return next();
   } catch (error) {
+    console.log(`error in authentication -> ${error}`);
     throw new UnauthorizedError("Authentication failed");
   }
 };
