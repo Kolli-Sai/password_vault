@@ -7,16 +7,9 @@ import HomePage from "./pages/Home";
 import DashboardPage from "./pages/Dashboard";
 import LoginPage from "./pages/Login";
 import SignupPage from "./pages/Signup";
-import Cookies from "js-cookie";
-import { useDispatch } from "react-redux";
-import { setToken } from "./store/isAuthenticated/isAuthenticatedSlice";
+import { useTokenSync } from "./components/useTokenSync";
 function App() {
-  const dispatch = useDispatch();
-  const token = Cookies.get("access-token");
-
-  useEffect(() => {
-    dispatch(setToken(token));
-  }, [dispatch, token]);
+  useTokenSync();
   return (
     <>
       <BrowserRouter>
