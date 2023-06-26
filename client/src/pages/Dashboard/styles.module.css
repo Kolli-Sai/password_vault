@@ -1,3 +1,11 @@
+.search {
+  display: flex;
+
+  width: 100%;
+  margin-bottom: 2em;
+  /* border: 2px solid black; */
+}
+
 .new {
   border: none;
   border-radius: 50%;
@@ -11,4 +19,34 @@
 
 .new:hover {
   transform: translateY(-3px);
+}
+
+.passwordsContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.passwordItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--static1);
+  border-radius: 6px;
+  margin: 4px;
+  padding: 20px;
+  /* color: var(--primary-button); */
+}
+@media (max-width: 768px) {
+  .passwordsContainer {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .passwordsContainer {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

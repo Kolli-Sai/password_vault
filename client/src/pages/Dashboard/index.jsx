@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   TextField,
   InputAdornment,
@@ -14,6 +14,9 @@ import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
 import { createPassword } from "../../store/createPassword/createPassword";
 import { MuiBackDrop } from "../../components/Backdrop/Backdrop";
+import { getAllPasswords } from "../../store/getAllPasswords/getAllPasswords";
+
+import { Link } from "react-router-dom";
 
 function Dashboard() {
   const [openDialog, setOpenDialog] = useState(false);
@@ -24,6 +27,9 @@ function Dashboard() {
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const dispatch = useDispatch();
   const { isLoading } = useSelector((store) => store.createPassword);
+  const getAllPasswordsStore = useSelector((store) => store.getAllPasswords);
+
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleOpenDialog = () => {
     setOpenDialog(true);
@@ -55,6 +61,9 @@ function Dashboard() {
         setDescription("");
         setSnackbarMessage("Password created successfully.");
         setSnackbarOpen(true);
+
+        // Dispatch the getAllPasswords action to update the state
+        dispatch(getAllPasswords());
       })
       .catch((error) => {
         // API request failed, display error message
@@ -63,29 +72,39 @@ function Dashboard() {
       });
   };
 
+  useEffect(() => {
+    dispatch(getAllPasswords());
+  }, []);
+
+  const filteredPasswords = getAllPasswordsStore.data.filter((item) =>
+    item.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div>
       <MuiBackDrop isLoading={isLoading} />
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          marginBottom: "16px",
-          width: "100%",
-        }}
-      >
-        <TextField
-          style={{ marginRight: "8px" }}
-          placeholder="Search..."
-          color="secondary"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            ),
+      <MuiBackDrop isLoading={getAllPasswordsStore.isLoading} />
+      <div className={styles.search}>
+        <div
+          style={{
+            width: "100%",
           }}
-        />
+        >
+          <TextField
+            style={{ marginRight: "8px", width: "100%" }}
+            placeholder="Search..."
+            color="secondary"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
       </div>
       <div className={styles.new} onClick={handleOpenDialog}>
         <AddIcon />
@@ -131,6 +150,24 @@ function Dashboard() {
           </button>
         </DialogActions>
       </Dialog>
+
+      <div className={styles.display}>
+        {filteredPasswords.length > 0 ? (
+          <div className={styles.passwordsContainer}>
+            {filteredPasswords.map((item) => (
+              <Link
+                to={`/password/${item._id}`}
+                key={item._id}
+                className={styles.passwordItem}
+              >
+                <h2>{item.title}</h2>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <p>No passwords found.</p>
+        )}
+      </div>
 
       <Snackbar
         open={snackbarOpen}

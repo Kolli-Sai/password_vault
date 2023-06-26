@@ -13,7 +13,9 @@ export const deletePassword = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const response = await API.delete(`/api/v1/user/password/${id}`, {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
       const data = await response.data;
       return data;

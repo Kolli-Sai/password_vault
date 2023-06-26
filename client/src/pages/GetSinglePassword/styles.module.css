@@ -1,0 +1,39 @@
+.goBack {
+  border: none;
+  border-radius: 50%;
+  /* background-color: var(--static1); */
+  /* padding: 20px; */
+  margin-bottom: 10px;
+}
+.passwordCard {
+  /* border: 2px solid black; */
+  background-color: var(--static2);
+  border-radius: 6px;
+  border: none;
+  /* padding: 2em; */
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(auto);
+  column-gap: 1em;
+}
+
+.delete {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.delete button {
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 6px;
+}
+
+.delete button:hover {
+  background-color: red;
+  color: white;
+}
+
+.container {
+  background-color: var(--static2);
+  padding: 20px;
+}

@@ -8,7 +8,7 @@
   --text: #051f09;
   --background: #ffffff;
   --primary-button: #871774;
-  --secondary-button: #e5fbe8;
+  --secondary-button: #73219c;
   --accent: #871774;
   --static1: rgba(225, 225, 225, 0.5);
   --static2: rgba(225, 225, 225, 0.2);
@@ -26,6 +26,11 @@
 }
 ::selection {
   background-color: var(--static1);
+}
+@font-face {
+  font-family: "poppins"; /*Can be any text*/
+  src: local("AirbnbCerealMedium"),
+    url("./fonts/Poppins-Regular.ttf") format("truetype");
 }
 
 /* text styles */
@@ -68,7 +73,7 @@ a {
   text-decoration: none;
   color: inherit;
   font-size: var(--p);
-  transition: transform ease 0.2s;
+  /* transition: transform ease 0.2s; */
 }
 
 body {
@@ -77,6 +82,8 @@ body {
   margin: 0 15%;
   color: var(--text);
   background-color: var(--background);
+  font-family: "poppins", sans-serif, "Segoe UI", Tahoma, Geneva, Verdana,
+    sans-serif;
   /* border: 2px solid var(--text); */
 }
 
@@ -97,6 +104,7 @@ body {
 
 .secondary-button {
   display: inline-block;
+  border: none;
 
   color: inherit;
   background-color: var(--secondary-button);
@@ -109,9 +117,9 @@ body {
   transform: translateY(3px);
 }
 
-a:hover {
+/* a:hover {
   transform: translateY(-3px);
-}
+} */
 .active {
   text-decoration-line: underline;
   text-decoration-color: var(--accent);
