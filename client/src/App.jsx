@@ -25,6 +25,7 @@ function App() {
         <Navbar handleLogout={handleLogout} />
         <Routes>
           <Route path="/" element={<HomePage handleLogout={handleLogout} />} />
+
           <Route
             path="/dashboard"
             element={token ? <DashboardPage /> : <LoginPage />}

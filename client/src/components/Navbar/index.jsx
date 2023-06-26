@@ -38,7 +38,11 @@ function Navbar({ handleLogout }) {
                 <Link to={"/dashboard"}>Dashboard</Link>
               </MenuItem>
               <MenuItem onClick={handleClose}>
-                <Link to={"/login"}>Login</Link>
+                {token ? (
+                  <Link onClick={handleLogout}>Logout</Link>
+                ) : (
+                  <Link to={"/login"}>Login</Link>
+                )}
               </MenuItem>
             </Menu>
           </div>

@@ -1,11 +1,9 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useEffect } from "react";
+import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { TextField } from "@mui/material";
+import { TextField, Snackbar } from "@mui/material";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { createUser } from "../../store/createUser/createUserSlice";
-import { useNavigate } from "react-router-dom";
 import { MuiBackDrop } from "../Backdrop/Backdrop";
 
 const validationSchema = yup.object().shape({
@@ -34,25 +32,32 @@ const initialValues = {
 
 export const SignUpForm = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { isLoading, data, error } = useSelector((store) => store.createUser);
+  const { isLoading, error } = useSelector((store) => store.createUser);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+
   const handleSignup = async (values, { resetForm }) => {
     delete values.confirmPassword;
-    try {
-      const result = await dispatch(createUser(values));
-      console.log(`createUser -> ${result.meta}`);
 
-      resetForm();
-    } catch (error) {
-      console.log(`error in createUser -> ${error}`);
-      resetForm();
-    }
+    await dispatch(createUser(values))
+      .unwrap()
+      // eslint-disable-next-line no-unused-vars
+      .then((res) => {
+        resetForm();
+        setSnackbarMessage("Sign up successful.");
+        setSnackbarOpen(true);
+      })
+      .catch((error) => {
+        console.log(`error in createUser -> ${error}`);
+        resetForm();
+        setSnackbarMessage("Sign up failed. Please try again.");
+        setSnackbarOpen(true);
+      });
   };
-  useEffect(() => {
-    if (data && data.message) {
-      navigate("/login");
-    }
-  }, []);
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
 
   return (
     <Formik
@@ -113,9 +118,18 @@ export const SignUpForm = () => {
           />
 
           <button className="primary-button" type="submit">
-            {isLoading ? "SigningUp..." : "SignUp"}
+            {isLoading ? "Signing Up..." : "Sign Up"}
           </button>
           <MuiBackDrop isLoading={isLoading} />
+
+          <Snackbar
+            open={snackbarOpen}
+            autoHideDuration={3000}
+            onClose={handleSnackbarClose}
+            message={snackbarMessage}
+            color="success" // Set the color to "success"
+          />
+
           {error && <p className="red">{error}</p>}
         </Form>
       )}

@@ -1,7 +1,6 @@
-// eslint-disable-next-line no-unused-vars
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { TextField } from "@mui/material";
+import { TextField, Snackbar } from "@mui/material";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -30,16 +29,33 @@ export const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isLoading, data, error } = useSelector((store) => store.loginUser);
-  const handleSubmit = async (values, { resetForm }) => {
-    try {
-      const result = await dispatch(loginUser(values));
-      console.log(`login user->${result}`);
-      resetForm();
-    } catch (error) {
-      console.log(`error in login user -> ${error}`);
-      resetForm();
-    }
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarColor, setSnackbarColor] = useState("success");
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
   };
+
+  const handleSubmit = async (values, { resetForm }) => {
+    await dispatch(loginUser(values))
+      .unwrap()
+      .then((result) => {
+        console.log(`login user->${result}`);
+        resetForm();
+        setSnackbarColor("success");
+        setSnackbarMessage("Login successful");
+        setSnackbarOpen(true);
+      })
+      .catch((error) => {
+        console.log(`error in login user -> ${error}`);
+        resetForm();
+        setSnackbarColor("error");
+        setSnackbarMessage("Login failed. Please try again.");
+        setSnackbarOpen(true);
+      });
+  };
+
   useEffect(() => {
     if (data && data.message) {
       console.log(data);
@@ -87,6 +103,13 @@ export const LoginForm = () => {
           </button>
           <MuiBackDrop isLoading={isLoading} />
           {error && <p className="red">{error}</p>}
+          <Snackbar
+            open={snackbarOpen}
+            autoHideDuration={3000}
+            onClose={handleSnackbarClose}
+            message={snackbarMessage}
+            severity={snackbarColor}
+          />
         </Form>
       )}
     </Formik>

@@ -1,0 +1,14 @@
+.new {
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  background-color: var(--primary-button);
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  transition: transform ease 0.2s;
+}
+
+.new:hover {
+  transform: translateY(-3px);
+}
