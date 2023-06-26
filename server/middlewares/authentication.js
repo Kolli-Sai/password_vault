@@ -3,11 +3,12 @@ const jwt = require("jsonwebtoken");
 
 const authentication = async (req, res, next) => {
   try {
-    const token = req.cookies["access-token"];
+    const authHeader = req.headers.authorization;
 
-    if (!token) {
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
       throw new UnauthorizedError("Invalid token");
     }
+    const token = authHeader.split(" ")[1];
 
     const payload = await jwt.verify(token, process.env.JWT_SECRET);
     req.user = payload;
