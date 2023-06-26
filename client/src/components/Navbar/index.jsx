@@ -4,9 +4,11 @@ import styles from "./styles.module.css";
 import { NavLink, Link } from "react-router-dom";
 import { Menu, MenuItem, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useSelector } from "react-redux";
 
-function Navbar() {
+function Navbar({ handleLogout }) {
   const [anchorEl, setAnchorEl] = useState(null);
+  const { token } = useSelector((store) => store.isAuthenticated);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -52,9 +54,15 @@ function Navbar() {
           </div>
           <div className={styles.sub2}>
             <div className={styles.login}>
-              <Link to={"/login"} className={"primary-button"}>
-                Login
-              </Link>
+              {token ? (
+                <Link className="primary-button" onClick={handleLogout}>
+                  Logout
+                </Link>
+              ) : (
+                <Link to={"/login"} className={"primary-button"}>
+                  Login
+                </Link>
+              )}
             </div>
           </div>
         </div>

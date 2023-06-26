@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../store/loginUser/loginUserSlice";
 import { MuiBackDrop } from "../Backdrop/Backdrop";
+import { setToken } from "../../store/isAuthenticated/isAuthenticatedSlice";
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -41,6 +42,9 @@ export const LoginForm = () => {
   };
   useEffect(() => {
     if (data && data.message) {
+      console.log(data);
+      localStorage.setItem("token", data.token);
+      dispatch(setToken(data.token));
       navigate("/dashboard");
     }
   }, [data && data?.message, dispatch]);

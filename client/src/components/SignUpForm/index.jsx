@@ -52,7 +52,7 @@ export const SignUpForm = () => {
     if (data && data.message) {
       navigate("/login");
     }
-  }, [data && data?.message, dispatch]);
+  }, []);
 
   return (
     <Formik

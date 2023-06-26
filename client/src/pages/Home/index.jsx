@@ -2,8 +2,11 @@
 import React from "react";
 import styles from "./styles.module.css";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-function Home() {
+function Home({ handleLogout }) {
+  const { token } = useSelector((store) => store.isAuthenticated);
+
   return (
     <div className={styles.hero}>
       <div className={styles.heroText}>
@@ -18,9 +21,15 @@ function Home() {
           safeguard your personal data.
         </p>
         <div>
-          <Link to={"/login"} className="primary-button">
-            Login
-          </Link>
+          {token ? (
+            <Link className="primary-button" onClick={handleLogout}>
+              Logout
+            </Link>
+          ) : (
+            <Link to={"/login"} className={"primary-button"}>
+              Login
+            </Link>
+          )}
         </div>
       </div>
       <div className={styles.heroImage}>
