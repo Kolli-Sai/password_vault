@@ -1,19 +1,21 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { MuiBackDrop } from "../../components/Backdrop/Backdrop";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getPassword } from "../../store/getPassword/getPassword";
+import { deletePassword } from "../../store/deletePassword/deletePassword";
+import { Snackbar } from "@mui/material";
 import styles from "./styles.module.css";
-
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Tooltip } from "@mui/material";
-import { deletePassword } from "../../store/deletePassword/deletePassword";
+import { MuiBackDrop } from "../../components/Backdrop/Backdrop";
 
 function GetSinglePassword() {
   const { id } = useParams();
   console.log(id);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
   const { isLoading, data } = useSelector((store) => store.getPassword);
   const deletePasswordStore = useSelector((store) => store.deletePassword);
 
@@ -29,6 +31,12 @@ function GetSinglePassword() {
   const handleDelete = () => {
     dispatch(deletePassword(data._id));
     navigate("/dashboard");
+    setSnackbarMessage("Password deleted successfully.");
+    setSnackbarOpen(true);
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
   };
 
   return (
@@ -56,6 +64,13 @@ function GetSinglePassword() {
             Delete
           </button>
         </div>
+        <Snackbar
+          open={snackbarOpen}
+          autoHideDuration={3000}
+          onClose={handleSnackbarClose}
+          message={snackbarMessage}
+          severity="success" // Set the severity to "success"
+        />
       </div>
     </>
   );

@@ -25,6 +25,10 @@ function Dashboard() {
   const [description, setDescription] = useState("");
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [formErrors, setFormErrors] = useState({
+    title: false,
+    password: false,
+  });
   const dispatch = useDispatch();
   const { isLoading } = useSelector((store) => store.createPassword);
   const getAllPasswordsStore = useSelector((store) => store.getAllPasswords);
@@ -45,6 +49,19 @@ function Dashboard() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Validate form fields
+    const errors = {
+      title: !title.trim(),
+      password: !password.trim(),
+    };
+
+    if (errors.title || errors.password) {
+      // Set form errors if any field is empty
+      setFormErrors(errors);
+      return;
+    }
+
     const payload = {
       title,
       password,
@@ -123,6 +140,8 @@ function Dashboard() {
               marginBottom: "8px",
               marginTop: "8px",
             }}
+            error={formErrors.title}
+            helperText={formErrors.title ? "Title is required" : ""}
           />
           <TextField
             label="Password"
@@ -131,6 +150,8 @@ function Dashboard() {
             required
             onChange={(e) => setPassword(e.target.value)}
             style={{ marginBottom: "8px" }}
+            error={formErrors.password}
+            helperText={formErrors.password ? "Password is required" : ""}
           />
           <TextField
             label="Description"
