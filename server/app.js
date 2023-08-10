@@ -27,7 +27,7 @@ const corsOptions = {
     "https://password-vault-server-eq9u.onrender.com",
   ],
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
 };
 //! middlewares
 app.use(express.json());
