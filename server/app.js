@@ -26,6 +26,7 @@ const corsOptions = {
     "http://localhost:8190",
     "https://password-vault-server-eq9u.onrender.com",
     "https://passwords-fyt5f2efk-kolli-sai.vercel.app",
+    "https://passwords-kolli-sai.vercel.app/",
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
